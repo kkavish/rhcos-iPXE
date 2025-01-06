@@ -1,0 +1,60 @@
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: core
+      # The default user for RHCOS
+      ssh_authorized_keys:
+        - ""
+      groups:
+        - sudo
+        - wheel
+
+storage:
+  files:
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: rhcos-equinix01
+    
+    # Ensure NetworkManager uses systemd-networkd naming scheme
+    - path: /etc/NetworkManager/conf.d/10-ethernet.conf
+      mode: 0644
+      contents:
+        inline: |
+          [device]
+          match-device=type:ethernet
+          wifi.scan-rand-mac-address=no
+          ethernet.scan-rand-mac-address=no
+
+    # Configure network interface for Equinix Metal
+    - path: /etc/NetworkManager/system-connections/eth0.nmconnection
+      mode: 0600
+      contents:
+        inline: |
+          [connection]
+          type=ethernet
+          interface-name=eth0
+          
+          [ethernet]
+          mac-address-randomization=0
+          
+          [ipv4]
+          method=auto
+          
+          [ipv6]
+          method=auto
+
+systemd:
+  units:
+    # Enable NetworkManager
+    - name: NetworkManager.service
+      enabled: true
+    
+    # Enable firewalld
+    - name: firewalld.service
+      enabled: true
+
+    # Enable and start chronyd for time sync
+    - name: chronyd.service
+      enabled: true
