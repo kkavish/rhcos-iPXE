@@ -1,0 +1,16 @@
+#!ipxe
+
+# Set the RHCOS version you want to install
+
+set rhcos_major_version 4.17
+set rhcos_version 4.17.0
+set arch x86_64
+
+# OpenShift Mirror URLs
+set base_url https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos
+
+# Kernel and initrd paths
+kernel ${base_url}/${rhcos_major_version}/latest/rhcos-${rhcos_version}-${arch}-live-kernel-${arch} initrd=main coreos.live.rootfs_url=${base_url}/${rhcos_major_version}/latest/rhcos-${rhcos_version}-${arch}-live-rootfs.${arch}.img ignition.platform.id=metal random.trust_cpu=on ignition.firstboot ignition.config.url=YOUR_IGNITION_CONFIG_URL console=ttyS1,115200n8 
+initrd --name main ${base_url}/${rhcos_major_version}/latest/rhcos-${rhcos_version}-${arch}-live-initramfs.${arch}.img
+
+boot
