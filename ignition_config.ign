@@ -1,0 +1,63 @@
+{
+  "ignition": {
+    "version": "3.3.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "groups": [
+          "sudo",
+          "wheel"
+        ],
+        "name": "core",
+        "sshAuthorizedKeys": [
+          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCthfQW8EwnjNjDI74x1ogFLI4NIE0JdczGP+v/FbDFvofbVtZ4S9dz2g9XTjimosnj65IUU7HV1F9hMhhT+1KbRvfUE2Btkrk6TJUm5bph5kmRlTcuCDIBBU5R4stDw2fC1Qdy+A8UYVlDABy7RtasVdhYKei/glyaF4hbsj4Ve/gHValUJj9Ul1xh8JiBkODtrAZsY7y++VAlya4xFURi5g0yBnRydvizoGWyrP47HJReHQPKBc3OUFmka2TX5hYj3YXufrbB8MujApsF81RyNh/sDycr0e4JpkD8YAa4YY3xG5ohoG7YUOBRwilvVxGahX6zy/ZbFCXIFjRJX9VZk0eTdfGVYcNHiWGDASuG33n/UuSeLv++vKMDs1yS1sxcCXYQEt2x1eFmgKJlADLT7UmS31PeFcZQ20MMyw8FNO3ZFGzdEZag4E0oHMQFAeQ3+3/vsNM9WbOlaU7y829w53/+FbgMrK8tcFG08TsgASkm8XAi//2SlEm5Sd67chhQbeODAKPPOIYEyHsdiAorPAO3UKboCcNU2pzsUNgjZECx5E5XQ+Rgfh8Rm0zfUr+IHv3kRrCeSR6j3+bPOfkStfvRtNFk11y0bpSabiDm1uqpVmJ8ahQxweva6Kl5TV3DQk85F20Ilrn3qP6qfw2to3x1VCIVCqCzg3w5RK8gPQ== kavish.kumar@hashicorp.com"
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "files": [
+      {
+        "path": "/etc/hostname",
+        "contents": {
+          "compression": "",
+          "source": "data:,rhcos-equinix01"
+        },
+        "mode": 420
+      },
+      {
+        "path": "/etc/NetworkManager/conf.d/10-ethernet.conf",
+        "contents": {
+          "compression": "",
+          "source": "data:,%5Bdevice%5D%0Amatch-device%3Dtype%3Aethernet%0Awifi.scan-rand-mac-address%3Dno%0Aethernet.scan-rand-mac-address%3Dno%0A"
+        },
+        "mode": 420
+      },
+      {
+        "path": "/etc/NetworkManager/system-connections/eth0.nmconnection",
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/1TMMQoCQQyF4T53GbAQuznJMkWYPNkUSZZsFPT0sorFtt97/MsMd8zS8EH12tBRK9JRpF7IO080Z/v6hWj5z4OMZ2ORxL63ZJcwffMR6sdPt+d1kKHWkM6Pip/dzvYJAAD//yh0f9h/AAAA"
+        },
+        "mode": 384
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "enabled": true,
+        "name": "NetworkManager.service"
+      },
+      {
+        "enabled": true,
+        "name": "firewalld.service"
+      },
+      {
+        "enabled": true,
+        "name": "chronyd.service"
+      }
+    ]
+  }
+}
